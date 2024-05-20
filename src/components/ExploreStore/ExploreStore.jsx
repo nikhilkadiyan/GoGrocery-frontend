@@ -7,7 +7,7 @@ const ExploreStore = ({ category, setCategory }) => {
 
   return (
     <div className="explore-store" id="explore-store">
-      <h1>Explore our stores</h1>
+      <h1>Explore our stores by category</h1>
       <p className="explore-store-text">
         Explore a vast selection of quality products at our grocery store. Our
         mission is to meet your needs and enhance your shopping experience, one
