@@ -20,12 +20,12 @@ const Store = ({
   // const [itemCount, setItemCount] = useState(0);
   // const {cartItems,addToCart,removeFromCart,url} = useContext(StoreContext);
 
-  const handleStoreClick = (e) => {
-    navigate("/store");
+  const handleStoreClick = (id) => {
+    navigate(`/store/${id}`);
   };
 
   return (
-    <div className="store" onClick={handleStoreClick}>
+    <div className="store" onClick={() => handleStoreClick(id)}>
       <div className="store-img-container">
         <img className="store-image" src={url + "/images/" + image} alt="" />
       </div>

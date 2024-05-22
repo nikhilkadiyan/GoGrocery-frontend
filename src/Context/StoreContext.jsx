@@ -63,9 +63,9 @@ const StoreContextProvider = (props) => {
   useEffect(() => {
     async function loadData() {
       await fetchShopkeeperList();
-      if (localStorage.getItem("token")) {
-        setToken(localStorage.getItem("token"));
-        await loadCartData({ token: localStorage.getItem("token") });
+      if (localStorage.getItem("gogrocerytoken")) {
+        setToken(localStorage.getItem("gogrocerytoken"));
+        await loadCartData({ token: localStorage.getItem("gogrocerytoken") });
       }
     }
     loadData();
