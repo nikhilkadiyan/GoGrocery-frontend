@@ -5,6 +5,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const url = "http://localhost:4000";
+  const [itemList, setItemList] = useState([]);
   const [shopkeeper_list, setShopkeeperList] = useState([]);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
@@ -39,13 +40,17 @@ const StoreContextProvider = (props) => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        let itemInfo = shopkeeper_list.find((product) => product._id === item);
+        let itemInfo = itemList.find((product) => product._id === item);
         totalAmount += itemInfo.price * cartItems[item];
       }
     }
     return totalAmount;
   };
 
+  const fetchItemsList = async () => {
+    const response = await axios.get(url + "/api/item/getAllItems");
+    setItemList(response.data.items);
+  };
   const fetchShopkeeperList = async () => {
     const response = await axios.get(url + "/api/shopkeeper/shopkeeperList");
     setShopkeeperList(response.data.shopkeepers);
@@ -63,6 +68,7 @@ const StoreContextProvider = (props) => {
   useEffect(() => {
     async function loadData() {
       await fetchShopkeeperList();
+      await fetchItemsList();
       if (localStorage.getItem("gogrocerytoken")) {
         setToken(localStorage.getItem("gogrocerytoken"));
         await loadCartData({ token: localStorage.getItem("gogrocerytoken") });

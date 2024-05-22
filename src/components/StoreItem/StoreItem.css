@@ -1,4 +1,4 @@
-.food-item {
+.store-item {
   width: 100%;
   margin: auto;
   border-radius: 15px;
@@ -6,13 +6,13 @@
   transition: 0.3s;
   animation: fadeIn 1s;
 }
-.food-item:hover {
+.store-item:hover {
   transform: scale(1.02);
 }
-.food-item-img-container {
+.store-item-img-container {
   position: relative;
 }
-.food-item-img-container .add {
+.store-item-img-container .add {
   width: 35px;
   position: absolute;
   bottom: 15px;
@@ -20,14 +20,14 @@
   cursor: pointer;
   border-radius: 50%;
 }
-.food-item-img-container .add:hover {
+.store-item-img-container .add:hover {
   border: 2px solid #2f9194;
 }
-.food-item-image {
+.store-item-image {
   width: 100%;
   border-radius: 15px 15px 0px 0px;
 }
-.food-item-counter {
+.store-item-counter {
   position: absolute;
   bottom: 15px;
   right: 15px;
@@ -38,30 +38,30 @@
   border-radius: 50px;
   background-color: white;
 }
-.food-item-counter img {
+.store-item-counter img {
   width: 30px;
 }
-.food-item-info {
+.store-item-info {
   padding: 20px;
 }
-.food-item-name-rating {
+.store-item-name-rating {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
-.food-item-name-rating p {
+.store-item-name-rating p {
   font-size: 20px;
   font-weight: 500;
 }
-.food-item-name-rating img {
+.store-item-name-rating img {
   width: 70px;
 }
-.food-item-desc {
+.store-item-desc {
   color: #676767;
   font-size: 12px;
 }
-.food-item-price {
+.store-item-price {
   color: #2f9194;
   font-size: 22px;
   font-weight: 500;
