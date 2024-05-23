@@ -4,13 +4,8 @@ import { StoreContext } from "../../Context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const {
-    cartItems,
-    shopkeeper_list,
-    removeFromCart,
-    getTotalCartAmount,
-    url,
-  } = useContext(StoreContext);
+  const { cartItems, itemList, removeFromCart, getTotalCartAmount, url } =
+    useContext(StoreContext);
   const navigate = useNavigate();
 
   return (
@@ -22,16 +17,16 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {shopkeeper_list.map((item, index) => {
+        {itemList.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
               <div key={index}>
                 <div className="cart-items-title cart-items-item">
                   <img src={url + "/images/" + item.image} alt="" />
                   <p>{item.name}</p>
-                  <p>${item.price}</p>
+                  <p>₹{item.price}</p>
                   <div>{cartItems[item._id]}</div>
-                  <p>${item.price * cartItems[item._id]}</p>
+                  <p>₹{item.price * cartItems[item._id]}</p>
                   <p
                     className="cart-items-remove-icon"
                     onClick={() => removeFromCart(item._id)}
@@ -51,18 +46,18 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>₹{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${getTotalCartAmount() === 0 ? 0 : 5}</p>
+              <p>₹{getTotalCartAmount() === 0 ? 0 : 50}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
               <b>
-                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 5}
+                ₹{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 50}
               </b>
             </div>
           </div>

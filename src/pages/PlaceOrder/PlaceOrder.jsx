@@ -19,14 +19,8 @@ const PlaceOrder = () => {
     phone: "",
   });
 
-  const {
-    getTotalCartAmount,
-    token,
-    shopkeeper_list,
-    cartItems,
-    url,
-    setCartItems,
-  } = useContext(StoreContext);
+  const { getTotalCartAmount, token, itemList, cartItems, url, setCartItems } =
+    useContext(StoreContext);
 
   const navigate = useNavigate();
 
@@ -39,7 +33,7 @@ const PlaceOrder = () => {
   const placeOrder = async (e) => {
     e.preventDefault();
     let orderItems = [];
-    shopkeeper_list.map((item) => {
+    itemList.map((item) => {
       if (cartItems[item._id] > 0) {
         let itemInfo = item;
         itemInfo["quantity"] = cartItems[item._id];
@@ -49,7 +43,7 @@ const PlaceOrder = () => {
     let orderData = {
       address: data,
       items: orderItems,
-      amount: getTotalCartAmount() + 5,
+      amount: getTotalCartAmount() + 50,
     };
     let response = await axios.post(url + "/api/order/place", orderData, {
       headers: { token },
@@ -160,18 +154,18 @@ const PlaceOrder = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>₹{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>${getTotalCartAmount() === 0 ? 0 : 5}</p>
+              <p>₹{getTotalCartAmount() === 0 ? 0 : 50}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
               <b>
-                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 5}
+                ₹{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 50}
               </b>
             </div>
           </div>

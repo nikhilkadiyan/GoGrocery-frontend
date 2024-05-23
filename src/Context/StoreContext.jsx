@@ -82,6 +82,7 @@ const StoreContextProvider = (props) => {
     shopkeeper_list,
     stores_types,
     cartItems,
+    itemList,
     addToCart,
     removeFromCart,
     getTotalCartAmount,
