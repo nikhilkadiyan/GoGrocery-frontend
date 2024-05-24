@@ -30,6 +30,11 @@ const PlaceOrder = () => {
     setData((data) => ({ ...data, [name]: value }));
   };
 
+  const handleBackButton = (event) => {
+    event.preventDefault();
+    alert("Please complete your payment or cancel the payment process.");
+  };
+
   const placeOrder = async (e) => {
     e.preventDefault();
     let orderItems = [];
@@ -45,12 +50,48 @@ const PlaceOrder = () => {
       items: orderItems,
       amount: getTotalCartAmount() + 50,
     };
+
     let response = await axios.post(url + "/api/order/place", orderData, {
       headers: { token },
     });
     if (response.data.success) {
-      const { session_url } = response.data;
-      window.location.replace(session_url);
+      const order = response.data.order;
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_API_KEY,
+        amount: order.amount,
+        currency: "INR",
+        name: "GoGrocery",
+        description: "Test Transaction",
+        image: assets.logo,
+        order_id: order.id,
+        callback_url: `${url}/api/order/verify`,
+        prefill: {
+          name: data.firstName + " " + data.lastName,
+          email: data.email,
+          contact: data.phone,
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+        modal: {
+          ondismiss: async function () {
+            const response = await axios.post(
+              url + "/api/order/cancelpayment",
+              { orderId: order.id }
+            );
+            window.removeEventListener("popstate", handleBackButton);
+          },
+        },
+      };
+
+      // Add the event listener when the Razorpay modal is opened
+      window.addEventListener("popstate", handleBackButton);
+
+      const razor = new window.Razorpay(options);
+      razor.open();
     } else {
       toast.error("Something Went Wrong");
     }
