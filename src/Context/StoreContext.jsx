@@ -4,7 +4,8 @@ import axios from "axios";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-  const url = "http://localhost:4000";
+  // const url = "http://localhost:4000";
+  const url = "https://gogrocery-backend.onrender.com";
   const [itemList, setItemList] = useState([]);
   const [shopkeeper_list, setShopkeeperList] = useState([]);
   const [cartItems, setCartItems] = useState({});
