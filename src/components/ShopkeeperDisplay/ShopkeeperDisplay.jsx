@@ -11,7 +11,7 @@ const ShopkeeperDisplay = ({ category }) => {
       <h2>Top stores near you</h2>
       <div className="shopkeeper-display-list">
         {shopkeeper_list.map((store) => {
-          if (category === "All" || category === item.category) {
+          if (category === "All" || category === store.category) {
             return (
               <Store
                 key={store._id}

@@ -85,7 +85,7 @@ export const stores_types = [
     menu_image: menu_1,
   },
   {
-    menu_name: "Dry fruits & Nuts",
+    menu_name: "Dry Fruits & Nuts",
     menu_image: menu_2,
   },
   {
