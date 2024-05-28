@@ -11,6 +11,12 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [location, setLocation] = useState({
+    lat: null,
+    lng: null,
+    postalCode: null,
+    error: null,
+  });
 
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
@@ -54,7 +60,9 @@ const StoreContextProvider = (props) => {
     setItemList(response.data.items);
   };
   const fetchShopkeeperList = async () => {
-    const response = await axios.get(url + "/api/shopkeeper/shopkeeperList");
+    const response = await axios.post(url + "/api/shopkeeper/shopkeeperList", {
+      postalCode: "201301",
+    });
     setShopkeeperList(response.data.shopkeepers);
   };
 
@@ -67,8 +75,46 @@ const StoreContextProvider = (props) => {
     setCartItems(response.data.cartData);
   };
 
+  const showUserLatLng = () => {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        setLocation({ ...location, lat, lng, error: null });
+        const postalCode = await getPostalCode(lat, lng);
+        setLocation({ ...location, lat, lng, postalCode });
+      },
+      (error) => {
+        setLocation({ ...location, error: error.message });
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      }
+    );
+  };
+
+  const getPostalCode = async (lat, lon) => {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const postalCode = data.address ? data.address.postcode : null;
+      return postalCode;
+    } catch (error) {
+      console.error("Error fetching postal code:", error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     async function loadData() {
+      showUserLatLng();
       await fetchShopkeeperList();
       await fetchItemsList();
       if (localStorage.getItem("gogrocerytoken")) {
