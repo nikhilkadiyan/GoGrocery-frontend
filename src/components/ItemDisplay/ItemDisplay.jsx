@@ -35,6 +35,7 @@ const ItemDisplay = ({ id }) => {
               desc={item.description}
               price={item.price}
               id={item._id}
+              discount={item.discount}
             />
           );
         })}

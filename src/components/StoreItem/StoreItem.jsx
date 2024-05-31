@@ -3,7 +3,7 @@ import "./StoreItem.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/StoreContext";
 
-const StoreItem = ({ image, name, price, desc, id }) => {
+const StoreItem = ({ image, name, price, desc, id, discount }) => {
   const [itemCount, setItemCount] = useState(0);
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
@@ -44,7 +44,11 @@ const StoreItem = ({ image, name, price, desc, id }) => {
           <p>{name}</p> <img src={assets.rating_starts} alt="" />
         </div>
         <p className="store-item-desc">{desc}</p>
-        <p className="store-item-price">₹{price}</p>
+        <p className="store-item-price">
+          ₹{(price * ((100 - discount) / 100)).toFixed(2)}
+        </p>
+        <p className="store-item-price-before-discount">₹{price}</p>
+        <span className="discount-value">Discount: {discount}%</span>
       </div>
     </div>
   );

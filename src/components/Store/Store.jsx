@@ -13,10 +13,16 @@ const Store = ({
   closeTime,
   id,
 }) => {
-  const { url } = useContext(StoreContext);
+  const { url, itemList } = useContext(StoreContext);
 
   const navigate = useNavigate();
 
+  const thisStoreItems = itemList.filter((item) => item.userId === id);
+
+  const highestDiscount =
+    thisStoreItems.length === 0
+      ? 0
+      : Math.max(...thisStoreItems.map((item) => item.discount));
   // const [itemCount, setItemCount] = useState(0);
   // const {cartItems,addToCart,removeFromCart,url} = useContext(StoreContext);
 
@@ -28,6 +34,7 @@ const Store = ({
     <div className="store" onClick={() => handleStoreClick(id)}>
       <div className="store-img-container">
         <img className="store-image" src={url + "/images/" + image} alt="" />
+        <p className="discount-lable">Discount upto: {highestDiscount}%</p>
       </div>
       <div className="store-info">
         <div className="store-name-rating">
