@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { StoreContext } from "../../Context/StoreContext";
 import SearchBox from "../SearchBox/SearchBox";
 
@@ -35,20 +36,22 @@ const Navbar = ({ setShowLogin }) => {
           >
             home
           </Link>
-          <a
-            href="#explore-store"
+          <HashLink
+            smooth
+            to="/#explore-store"
             onClick={() => setMenu("menu")}
             className={`${menu === "menu" ? "active" : ""}`}
           >
             stores
-          </a>
-          <a
-            href="#app-download"
+          </HashLink>
+          <HashLink
+            smooth
+            to="/#app-download"
             onClick={() => setMenu("mob-app")}
             className={`${menu === "mob-app" ? "active" : ""}`}
           >
             mobile app
-          </a>
+          </HashLink>
           <a
             href="#footer"
             onClick={() => setMenu("contact")}
