@@ -89,7 +89,7 @@ export const stores_types = [
     menu_image: menu_2,
   },
   {
-    menu_name: "Fruits & Vegitables",
+    menu_name: "Fruits & Vegetables",
     menu_image: menu_3,
   },
   {
