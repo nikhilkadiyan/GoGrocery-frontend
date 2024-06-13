@@ -17,7 +17,7 @@
   left: 6vw;
   animation: fadeIn 3s;
 }
-.header-contents button {
+.header-contents a {
   border: none;
   color: white;
   font-weight: 500;
